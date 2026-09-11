@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Data (never commit large raw datasets)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/images/*
+!data/images/.gitkeep
+!data/raw/demo_manifest.json
+
+# Outputs / artifacts
+outputs/models/*
+!outputs/models/.gitkeep
+outputs/figures/*
+!outputs/figures/.gitkeep
+outputs/explanations/*
+!outputs/explanations/.gitkeep
+outputs/mlflow/*
+!outputs/mlflow/.gitkeep
+mlruns/
+*.ckpt
+*.pt
+*.pth
+*.joblib
+*.pkl
+
+# Logs & caches
+*.log
+.cache/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Streamlit
+.streamlit/secrets.toml

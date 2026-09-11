@@ -1,0 +1,75 @@
+seed: 42
+target: band_gap
+unit: eV
+
+data:
+  processed_dir: data/processed
+  images_dir: data/images
+  split_strategy: random  # use composition for Materials Project runs
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  dataset_version: v1
+  image_size: 224
+  num_workers: 0
+
+modalities:
+  image: true
+  tabular: true
+  text: false  # optional; set true for Version 2-style runs
+
+model:
+  vision:
+    backbone: resnet18  # resnet18 | efficientnet_b0
+    pretrained: true
+    freeze: true
+    embedding_dim: 256
+  tabular:
+    hidden_dims: [256, 128]
+    embedding_dim: 128
+    dropout: 0.2
+  text:
+    model_name: sentence-transformers/all-MiniLM-L6-v2
+    embedding_dim: 128
+    freeze: true
+  fusion:
+    method: concat  # concat | gated (extensible)
+    hidden_dim: 256
+    dropout: 0.3
+  head:
+    hidden_dims: [128, 64]
+    dropout: 0.2
+
+training:
+  epochs: 12
+  batch_size: 16
+  lr: 0.0003
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  mixed_precision: true
+  early_stopping_patience: 5
+  scheduler: cosine  # cosine | step | none
+  resume: null
+  checkpoint_dir: outputs/models
+  checkpoint_name: multimodal_best.pt
+
+uncertainty:
+  method: mc_dropout  # mc_dropout | ensemble
+  n_samples: 20
+  dropout_rate: 0.2
+
+ablation:
+  runs:
+    - name: tabular_only
+      modalities: { image: false, tabular: true, text: false }
+    - name: image_only
+      modalities: { image: true, tabular: false, text: false }
+    - name: image_tabular
+      modalities: { image: true, tabular: true, text: false }
+    - name: image_tabular_text
+      modalities: { image: true, tabular: true, text: true }
+
+output:
+  metrics_path: outputs/figures/multimodal_metrics.json
+  ablation_path: outputs/figures/ablation_metrics.json
+  mlflow_experiment: materials-bandgap-multimodal

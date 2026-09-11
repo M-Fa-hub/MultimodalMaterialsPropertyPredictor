@@ -1,0 +1,27 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_CHECKPOINT=/app/outputs/models/multimodal_best.pt
+      - MATERIALS_AI_DATA_DIR=/app/data
+      - MLFLOW_TRACKING_URI=file:/app/outputs/mlflow
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./configs:/app/configs
+    command: uvicorn materials_ai.api.main:app --host 0.0.0.0 --port 8000
+
+  ui:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - MODEL_CHECKPOINT=/app/outputs/models/multimodal_best.pt
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    command: streamlit run app/streamlit_app.py --server.address=0.0.0.0 --server.port=8501
+    depends_on:
+      - api
