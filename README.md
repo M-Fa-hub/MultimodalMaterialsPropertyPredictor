@@ -16,6 +16,8 @@ An end-to-end scientific machine learning portfolio project that builds a multim
 
 > **Scientific disclaimer:** Reported metrics reflect predictive **correlation** under a defined dataset, split, and training budget. They do **not** imply causation, calibrated physical uncertainty, or materials discovery claims.
 
+> **AI assistance disclosure:** This project was developed **with the help of an AI coding assistant** (Cursor). The AI assisted with scaffolding, implementation, documentation, and debugging. Project goals, scientific constraints, review, experiment decisions, and final responsibility for the work remain with the author.
+
 ---
 
 ## Table of contents
@@ -46,7 +48,8 @@ An end-to-end scientific machine learning portfolio project that builds a multim
 24. [Critical scientific rules](#24-critical-scientific-rules)
 25. [Limitations](#25-limitations)
 26. [Roadmap](#26-roadmap)
-27. [License](#27-license)
+27. [AI assistance](#27-ai-assistance)
+28. [License](#28-license)
 
 ---
 
@@ -821,7 +824,29 @@ Code conventions: type hints, pathlib, Pydantic configs, structured logging, sma
 
 ---
 
-## 27. License
+## 27. AI assistance
+
+This repository was written and iteratively developed **with assistance from an AI coding assistant** (Cursor Agent).
+
+The AI contributed to:
+
+- Project scaffolding and package structure
+- Implementation of data, model, training, API, and UI modules
+- Configuration, Docker, tests, and documentation (including this README)
+- Debugging, refactoring, and verification commands
+
+Human ownership covered:
+
+- Defining the scientific problem and Version 1 scope
+- Setting constraints (no target leakage, honest metrics, reproducible pipeline)
+- Reviewing architecture and results interpretation
+- Deciding experiment setups and accepting final outputs
+
+This disclosure is included for transparency in a portfolio / hiring context: modern AI/ML engineering often includes AI-assisted development, and that collaboration is stated explicitly here.
+
+---
+
+## 28. License
 
 MIT License — see [`LICENSE`](LICENSE).
 
@@ -829,6 +854,7 @@ MIT License — see [`LICENSE`](LICENSE).
 
 ## Acknowledgments
 
+- AI development assistance: [Cursor](https://cursor.com/)
 - Structure handling: [pymatgen](https://pymatgen.org/), [ASE](https://wiki.fysik.dtu.dk/ase/)
 - Optional data source: [Materials Project](https://materialsproject.org/)
 - Vision / DL: PyTorch, torchvision
