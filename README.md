@@ -1,11 +1,14 @@
 # Multimodal Materials Property Predictor
 
-**Band-gap regression from crystal structure images + tabular descriptors (+ optional text)**
+**A physicist applying ML/AI to design a multimodal materials property predictor**
 
-An end-to-end scientific machine learning portfolio project that builds a multimodal AI system for materials property prediction — from public/demo structure data through feature engineering, computer vision, tabular ML, multimodal deep learning, evaluation, explainability, uncertainty estimation, FastAPI deployment, Streamlit UI, Docker, and MLflow tracking.
+Band-gap regression from crystal structure images + tabular descriptors (+ optional text).
+
+This repository shows how a **physicist** can translate domain knowledge about electronic structure and materials into a working **multimodal machine learning system**: choosing a physically meaningful target (band gap), engineering scientifically valid descriptors, avoiding target leakage, comparing strong baselines, fusing structure images with tabular features, and deploying a reproducible inference stack.
 
 | | |
 | --- | --- |
+| **Perspective** | Physicist applying ML / AI |
 | **Task** | Regression |
 | **Target** | Electronic band gap |
 | **Unit** | eV |
@@ -16,7 +19,7 @@ An end-to-end scientific machine learning portfolio project that builds a multim
 
 > **Scientific disclaimer:** Reported metrics reflect predictive **correlation** under a defined dataset, split, and training budget. They do **not** imply causation, calibrated physical uncertainty, or materials discovery claims.
 
-> **AI assistance disclosure:** This project was developed **with the help of an AI coding assistant** (Cursor). The AI assisted with scaffolding, implementation, documentation, and debugging. Project goals, scientific constraints, review, experiment decisions, and final responsibility for the work remain with the author.
+> **AI assistance disclosure:** This project was developed **with the help of an AI coding assistant** (Cursor). The AI assisted with scaffolding, implementation, documentation, and debugging. Scientific problem framing, physics constraints, review, experiment decisions, and final responsibility remain with the author.
 
 ---
 
@@ -55,27 +58,34 @@ An end-to-end scientific machine learning portfolio project that builds a multim
 
 ## 1. Motivation
 
-Materials properties such as band gap depend on both **chemistry** and **structure**. Classical tabular models use composition and lattice descriptors effectively, while structure visualizations encode geometric patterns that may complement those features.
+In condensed-matter and materials physics, properties such as the **electronic band gap** depend on both **chemical composition** and **crystal structure**. A physicist already reasons in terms of orbitals, bonding, lattice geometry, and symmetry — ML/AI can operationalize that intuition at scale.
 
-This project asks a practical engineering question:
+This project is therefore framed as:
+
+> **Can a physicist apply modern ML/AI methods to design a multimodal materials property predictor that respects scientific constraints while remaining reproducible and deployable?**
+
+Classical tabular models use composition and lattice descriptors effectively. Structure images may encode complementary geometric patterns. The practical ML question becomes:
 
 > **Does multimodal fusion of structure images and tabular descriptors improve band-gap prediction compared with strong tabular baselines?**
 
-The answer is evaluated with baselines, ablations, and honest reporting — including cases where multimodal models do *not* beat trees on a small demo corpus.
+The answer is evaluated with baselines, ablations, and honest reporting — including cases where multimodal models do *not* beat trees on a small demo corpus. That critical stance is part of doing physics-informed ML carefully.
 
 ---
 
 ## 2. What this project demonstrates
 
+For a physicist moving into applied ML/AI, this repository demonstrates the full loop from physical problem → model → evaluation → deployment:
+
 | Area | Implementation |
 | --- | --- |
+| Physics-informed problem setup | Band-gap regression with clear units and no target leakage |
 | Data engineering | Download/demo acquisition → validation audit → descriptors → images → cached processed dataset |
 | Computer vision | Automatic 2D structure rendering + pretrained ResNet18 encoder |
 | Tabular ML | Dummy, Random Forest, Extra Trees, XGBoost, MLP baselines |
 | Multimodal DL | Per-modality encoders + fusion + regression head |
 | Evaluation | MAE, RMSE, R², scatter plots, ablation table |
 | Explainability | Tabular importance + Grad-CAM overlays |
-| Uncertainty | Monte Carlo dropout predictive std |
+| Uncertainty | Monte Carlo dropout predictive std (explicitly uncalibrated) |
 | Deployment | FastAPI + Streamlit |
 | Containers | Dockerfile + Docker Compose |
 | Experiment tracking | MLflow (SQLite backend) |
@@ -142,9 +152,12 @@ f(\text{structure image},\ \text{tabular descriptors})\ \rightarrow\ \hat{E}_g
 
 ### Why band gap?
 
-- Scientifically meaningful for semiconductors, photovoltaics, and optoelectronics
-- Continuous regression target with clear physical units
+- Central quantity in semiconductor and optoelectronics physics
+- Clear physical meaning and units (eV)
+- Continuous regression target well suited to supervised ML
 - Widely available in Materials Project-style datasets
+
+A physicist choosing band gap as the Version 1 target keeps the ML problem anchored to a property that is both scientifically meaningful and measurable.
 
 ### Alternative targets (future)
 
@@ -826,7 +839,7 @@ Code conventions: type hints, pathlib, Pydantic configs, structured logging, sma
 
 ## 27. AI assistance
 
-This repository was written and iteratively developed **with assistance from an AI coding assistant** (Cursor Agent).
+This repository was written and iteratively developed **with assistance from an AI coding assistant** (Cursor Agent), used as a productivity tool while designing the system from a **physics + ML** perspective.
 
 The AI contributed to:
 
@@ -835,14 +848,15 @@ The AI contributed to:
 - Configuration, Docker, tests, and documentation (including this README)
 - Debugging, refactoring, and verification commands
 
-Human ownership covered:
+Human (physicist) ownership covered:
 
 - Defining the scientific problem and Version 1 scope
+- Choosing band gap as a physically meaningful target
 - Setting constraints (no target leakage, honest metrics, reproducible pipeline)
-- Reviewing architecture and results interpretation
+- Reviewing architecture and interpreting results scientifically
 - Deciding experiment setups and accepting final outputs
 
-This disclosure is included for transparency in a portfolio / hiring context: modern AI/ML engineering often includes AI-assisted development, and that collaboration is stated explicitly here.
+This disclosure is included for transparency: a physicist can apply ML/AI effectively, including with modern AI-assisted development workflows, while remaining accountable for scientific validity.
 
 ---
 
@@ -863,4 +877,4 @@ MIT License — see [`LICENSE`](LICENSE).
 
 ---
 
-**Bottom line:** this repository is designed to show that an AI/ML engineer can build a scientifically careful, reproducible multimodal materials ML system — from raw structures to training, ablation, explainability, uncertainty, and deployment — not merely chase the lowest error on a toy split.
+**Bottom line:** this repository shows that a **physicist can apply ML/AI** to design a scientifically careful, reproducible **multimodal materials property predictor** — from physical problem formulation and descriptor design through training, ablation, explainability, uncertainty, and deployment — not merely chase the lowest error on a toy split.
